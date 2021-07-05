@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: 'welcome',
+      mode: '',
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcome: { title: 'Welcom', desc: 'Hello react' },
       contents: [
@@ -36,8 +36,8 @@ class App extends Component {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
     } else if (this.state.mode === 'read') {
-      _title = this.state.content[0].title;
-      _desc = this.state.content[0].desc;
+      _title = this.state.contents[0].title;
+      _desc = this.state.contents[0].desc;
     }
 
     return (
@@ -50,10 +50,12 @@ class App extends Component {
           <h1>
             <a
               href="/"
-              onClick={(e) => {
-                console.log(e);
+              onClick={function (e) {
                 e.preventDefault();
-              }}
+                this.setState((current) => ({
+                  mode: 'welcome',
+                }));
+              }.bind(this)}
             >
               {this.state.subject.title}
             </a>
