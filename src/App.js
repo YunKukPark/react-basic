@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import TOC from './components/TOC';
 import Subject from './components/Subject';
-import Content from './components/Content';
+import ReadContent from './components/ReadContent';
+import CreateContent from './components/CreateContent';
+import Control from './components/Control';
 import './App.css';
 
 class App extends Component {
@@ -31,22 +33,35 @@ class App extends Component {
   }
 
   render() {
+    // TODO:  let으로 선언된 부분 Object 로 관리하기.
     let _title,
-      _desc = null;
+      _desc,
+      _article = null;
 
     const { state } = this;
 
-    if (state.mode === 'welcome') {
-      _title = state.welcome.title;
-      _desc = state.welcome.desc;
-    } else if (state.mode === 'read') {
-      state.contents.filter((data) => {
-        if (data.id === state.selectedContentId) {
-          _title = data.title;
-          _desc = data.desc;
-        }
-        return [_title, _desc];
-      });
+    switch (state.mode) {
+      case 'welcome':
+        _title = state.welcome.title;
+        _desc = state.welcome.desc;
+        _article = <ReadContent title={_title} desc={_desc} />;
+        break;
+      case 'read':
+        state.contents.filter((data) => {
+          if (data.id === state.selectedContentId) {
+            _title = data.title;
+            _desc = data.desc;
+          }
+          _article = <ReadContent title={_title} desc={_desc} />;
+          return [_title, _desc];
+        });
+        break;
+
+      case 'create':
+        _article = <CreateContent />;
+        break;
+
+      default:
     }
 
     return (
@@ -67,7 +82,14 @@ class App extends Component {
           }.bind(this)}
           data={state.contents}
         />
-        <Content title={_title} desc={_desc} />
+        <Control
+          onChangeMode={function (mode) {
+            this.setState({
+              mode,
+            });
+          }.bind(this)}
+        />
+        {_article}
       </div>
     );
   }
