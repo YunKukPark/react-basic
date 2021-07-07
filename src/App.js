@@ -33,28 +33,27 @@ class App extends Component {
   render() {
     let _title,
       _desc = null;
-    if (this.state.mode === 'welcome') {
-      _title = this.state.welcome.title;
-      _desc = this.state.welcome.desc;
-    } else if (this.state.mode === 'read') {
-      // TODO: Filter 사용해서 고치기
-      var i = 0;
-      while (i < this.state.contents.length) {
-        var data = this.state.contents[i];
-        if (data.id === this.state.selectedContentId) {
+
+    const { state } = this;
+
+    if (state.mode === 'welcome') {
+      _title = state.welcome.title;
+      _desc = state.welcome.desc;
+    } else if (state.mode === 'read') {
+      state.contents.filter((data) => {
+        if (data.id === state.selectedContentId) {
           _title = data.title;
           _desc = data.desc;
-          break;
         }
-        i += 1;
-      }
+        return [_title, _desc];
+      });
     }
 
     return (
       <div className="App">
         <Subject
-          title={this.state.subject.title}
-          sub={this.state.subject.sub}
+          title={state.subject.title}
+          sub={state.subject.sub}
           onChangePage={function () {
             this.setState({ mode: 'welcome' });
           }.bind(this)}
@@ -66,7 +65,7 @@ class App extends Component {
               selectedContentId: Number(id),
             });
           }.bind(this)}
-          data={this.state.contents}
+          data={state.contents}
         />
         <Content title={_title} desc={_desc} />
       </div>
