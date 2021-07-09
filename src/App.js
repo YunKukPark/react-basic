@@ -9,8 +9,9 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.maxContentId = 3;
     this.state = {
-      mode: '',
+      mode: 'create', //TODO: 디버깅용으로 create 로 해놓음. 작업 후에 다시 빈 값으로 돌려 놓을 것!!
       selectedContentId: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcome: { title: 'Welcom', desc: 'Hello react' },
@@ -58,7 +59,23 @@ class App extends Component {
         break;
 
       case 'create':
-        _article = <CreateContent />;
+        _article = (
+          <CreateContent
+            onSubmit={function (_title, _desc) {
+              console.log(`_title = ${_title}, _desc = ${_desc}`);
+              this.maxContentId += 1;
+              const _contents = this.state.contents.concat({
+                id: this.maxContentId,
+                title: _title,
+                desc: _desc,
+              });
+              this.setState({
+                contents: _contents,
+              });
+              console.log(state);
+            }.bind(this)}
+          />
+        );
         break;
 
       default:
