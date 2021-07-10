@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.maxContentId = 3;
     this.state = {
-      mode: 'create', //TODO: 디버깅용으로 create 로 해놓음. 작업 후에 다시 빈 값으로 돌려 놓을 것!!
+      mode: '',
       selectedContentId: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcome: { title: 'Welcom', desc: 'Hello react' },
@@ -62,7 +62,6 @@ class App extends Component {
         _article = (
           <CreateContent
             onSubmit={function (_title, _desc) {
-              console.log(`_title = ${_title}, _desc = ${_desc}`);
               this.maxContentId += 1;
               const _contents = this.state.contents.concat({
                 id: this.maxContentId,
@@ -72,7 +71,6 @@ class App extends Component {
               this.setState({
                 contents: _contents,
               });
-              console.log(state);
             }.bind(this)}
           />
         );
