@@ -62,14 +62,15 @@ class App extends Component {
         _article = (
           <CreateContent
             onSubmit={function (_title, _desc) {
+              const newContents = Array.from(this.state.contents);
               this.maxContentId += 1;
-              const _contents = this.state.contents.concat({
+              newContents.push({
                 id: this.maxContentId,
                 title: _title,
                 desc: _desc,
               });
               this.setState({
-                contents: _contents,
+                contents: newContents,
               });
             }.bind(this)}
           />
