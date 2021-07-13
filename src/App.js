@@ -3,6 +3,7 @@ import TOC from './components/TOC';
 import Subject from './components/Subject';
 import ReadContent from './components/ReadContent';
 import CreateContent from './components/CreateContent';
+import UpdateContent from './components/UpdateContent';
 import Control from './components/Control';
 import './App.css';
 
@@ -11,7 +12,7 @@ class App extends Component {
     super(props);
     this.maxContentId = 3;
     this.state = {
-      mode: '',
+      mode: 'update',
       selectedContentId: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcome: { title: 'Welcom', desc: 'Hello react' },
@@ -33,8 +34,7 @@ class App extends Component {
     };
   }
 
-  render() {
-    // TODO:  let으로 선언된 부분 Object 로 관리하기.
+  getContent() {
     let _title,
       _desc,
       _article = null;
@@ -57,7 +57,6 @@ class App extends Component {
           return [_title, _desc];
         });
         break;
-
       case 'create':
         _article = (
           <CreateContent
@@ -76,10 +75,16 @@ class App extends Component {
           />
         );
         break;
-
+      case 'update':
+        _article = <UpdateContent />;
+        break;
       default:
     }
+    return _article;
+  }
 
+  render() {
+    const { state } = this;
     return (
       <div className="App">
         <Subject
@@ -105,7 +110,7 @@ class App extends Component {
             });
           }.bind(this)}
         />
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
