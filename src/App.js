@@ -35,6 +35,7 @@ class App extends Component {
   }
 
   getReadContent() {
+    //TODO: filter 나 forEach 사용해서 return 되는 값 처리하기
     let i = 0;
     while (i < this.state.contents.length) {
       let data = this.state.contents[i];
@@ -77,6 +78,8 @@ class App extends Component {
               });
               this.setState({
                 contents: newContents,
+                mode: 'read',
+                selectedContentId: this.maxContentId,
               });
             }.bind(this)}
           />
@@ -87,7 +90,19 @@ class App extends Component {
         _article = (
           <UpdateContent
             data={_content}
-            onSubmit={function (_title, _desc) {}}
+            onSubmit={function (_id, _title, _desc) {
+              let _contents = Array.from(state.contents);
+              let i = 0;
+              while (i < _contents.length) {
+                //TODO: map 이나 foreach 나 filter 를 이용 할 순 없을까???
+                if (_contents[i].id === _id) {
+                  _contents[i] = { id: _id, title: _title, desc: _desc };
+                  break;
+                }
+                i = i + 1;
+              }
+              this.setState({ contents: _contents, mode: 'read' });
+            }.bind(this)}
           />
         );
         break;
