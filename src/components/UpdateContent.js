@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
 
 class UpdateContent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: this.props.data.title,
+      desc: this.props.data.desc,
+    };
+
+    this.inputFormHandler = this.inputFormHandler.bind(this);
+  }
+
+  inputFormHandler(e) {
+    //TODO: ES 최신문법 대괄호 문법 관련 자료 찾아보기.
+    this.setState({ [e.target.name]: e.target.value });
+  }
   render() {
     const { props } = this;
-    console.log(props.data);
-    console.log(`UpdateContent Render`);
     return (
       <article>
         <h2>Update</h2>
@@ -17,10 +30,21 @@ class UpdateContent extends Component {
           }}
         >
           <p>
-            <input type="text" name="title" placeholder="title"></input>
+            <input
+              type="text"
+              name="title"
+              placeholder="title"
+              value={this.state.title}
+              onChange={this.inputFormHandler}
+            ></input>
           </p>
           <p>
-            <textarea name="desc" placeholder="description"></textarea>
+            <textarea
+              name="desc"
+              placeholder="description"
+              value={this.state.desc}
+              onChange={this.inputFormHandler}
+            ></textarea>
           </p>
           <p>
             <input type="submit" />
