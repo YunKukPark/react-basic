@@ -34,12 +34,24 @@ class App extends Component {
     };
   }
 
+  getReadContent() {
+    let i = 0;
+    while (i < this.state.contents.length) {
+      let data = this.state.contents[i];
+      if (data.id === this.state.selectedContentId) {
+        return data;
+      }
+      i = i + 1;
+    }
+  }
+
   getContent() {
     let _title,
       _desc,
       _article = null;
 
     const { state } = this;
+    let _content = this.getReadContent();
 
     switch (state.mode) {
       case 'welcome':
@@ -47,16 +59,11 @@ class App extends Component {
         _desc = state.welcome.desc;
         _article = <ReadContent title={_title} desc={_desc} />;
         break;
+
       case 'read':
-        state.contents.filter((data) => {
-          if (data.id === state.selectedContentId) {
-            _title = data.title;
-            _desc = data.desc;
-          }
-          _article = <ReadContent title={_title} desc={_desc} />;
-          return [_title, _desc];
-        });
+        _article = <ReadContent title={_content.title} desc={_content.desc} />;
         break;
+
       case 'create':
         _article = (
           <CreateContent
@@ -75,9 +82,16 @@ class App extends Component {
           />
         );
         break;
+
       case 'update':
-        _article = <UpdateContent />;
+        _article = (
+          <UpdateContent
+            data={_content}
+            onSubmit={function (_title, _desc) {}}
+          />
+        );
         break;
+
       default:
     }
     return _article;
