@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
     this.maxContentId = 3;
     this.state = {
-      mode: '',
+      mode: 'welcome',
       selectedContentId: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcome: { title: 'Welcom', desc: 'Hello react' },
@@ -129,9 +129,33 @@ class App extends Component {
         />
         <Control
           onChangeMode={function (mode) {
-            this.setState({
-              mode,
-            });
+            switch (mode) {
+              case 'delete':
+                if (window.confirm('삭제 하시겠습니까?')) {
+                  // 어떤 내용이 선택 되었는지 체크한다.
+                  // 체크된 내용을 원 배열에서 삭제한다.
+                  // State 변경 요청 한다
+                  let _contents = Array.from(this.state.contents);
+                  _contents.forEach((content, idx) => {
+                    if (content.id === this.state.selectedContentId) {
+                      _contents.splice(idx, 1);
+                    }
+                  });
+                  this.setState({
+                    mode: 'welcome',
+                    contents: _contents,
+                  });
+                  alert('Deleted');
+                  break;
+                }
+                break;
+
+              default:
+                this.setState({
+                  mode,
+                });
+                break;
+            }
           }.bind(this)}
         />
         {this.getContent()}
