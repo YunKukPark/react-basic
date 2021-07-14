@@ -35,15 +35,10 @@ class App extends Component {
   }
 
   getReadContent() {
-    //TODO: filter 나 forEach 사용해서 return 되는 값 처리하기
-    let i = 0;
-    while (i < this.state.contents.length) {
-      let data = this.state.contents[i];
-      if (data.id === this.state.selectedContentId) {
-        return data;
-      }
-      i = i + 1;
-    }
+    const targetContent = this.state.contents.filter((content) => {
+      return content.id === this.state.selectedContentId;
+    });
+    return targetContent[0];
   }
 
   getContent() {
