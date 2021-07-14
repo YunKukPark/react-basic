@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
     this.maxContentId = 3;
     this.state = {
-      mode: 'update',
+      mode: '',
       selectedContentId: 2,
       subject: { title: 'WEB', sub: 'World Wide Web' },
       welcome: { title: 'Welcom', desc: 'Hello react' },
