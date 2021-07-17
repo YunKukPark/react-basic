@@ -14,7 +14,6 @@ class UpdateContent extends Component {
   }
 
   inputFormHandler(e) {
-    //TODO: ES 최신문법 대괄호 문법 관련 자료 찾아보기.
     this.setState({ [e.target.name]: e.target.value });
   }
   render() {
