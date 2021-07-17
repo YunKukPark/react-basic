@@ -88,9 +88,25 @@
   ```
 
 - Control.js
-  //TODO: 여기서 부터 다시 작성.
+
+  - 상호작용 : Control 에서 선택된 Button에 대해서 `App.js` 의 `state.mode` 가 변경된다
+
+    <img src="./readmeImg/control.jpeg" alt="Control 코드 설명">
+
 - CreateContent.js
+
+  - 상호작용 : `CreateContent` 의 input 에 들어간 `title` 과 `desc` 가 `state.contents`에 추가되고, 웹상에서 보여지게 된다.
+
+    <img src="./readmeImg/create.jpeg" alt="Create 코드 설명">
+
 - UpdateContent.js
+  - 상호작용 :
+
+    1.  현재 선택된 content 내용을 input 창으로 가져온다.
+    2.  input 창 내용이 수정될 때 마다 UpdateContent 안에서는 그 값을 기억하고 있어야 한다. (없을 시 교체값이 이상해짐)
+    3.  App.js 는 UpdateContent 에서 전달 받은 param값을 가지고 현재 보여지는 contents 의 값을 수정한다.
+
+        <img src="./readmeImg/create.jpeg" alt="Update 코드 설명">
 
 ## 3. Functions
 
@@ -119,7 +135,7 @@ _article = <ReadContent title={_title} desc={_desc} />;
 
 기본 동작인 react CRUD 동작원리에 대해 공부하면서 배운점
 
-[NOTE 📝](https://hypnotic-stone-d7f.notion.site/React-efa364157ac14e81a19019d0a3ccb5cf){:target="\_blank"}
+[NOTE 📝](https://hypnotic-stone-d7f.notion.site/React-efa364157ac14e81a19019d0a3ccb5cf)
 
 1. Component 를 만드는 법
 2. State 다루기  
@@ -165,4 +181,9 @@ state, props 의 관계를 통해 소통하는 것도 좋은 것 같다.
 그리고, 유지보수를 위해 좋은 코드를 짜는 방법이 분명 있을텐데 아직 걸음마 단계라 그저 배우는데 급급했던 점이 아쉽다.  
 또, 굉장히 this 를 많이 쓰는데 arrow function 을 사용하면 this 를 쓸 수없고 일반 function 문을 사용하면 코드 가독이 안좋아진다. 분명 더 좋은 방법이 있을텐데...
 
-### -- End Of Doc. --
+## 강의 이후엔 뭘 해야할까?
+
+React Hook에 대해서 배우고 싶다.  
+React Hook은 상태관리를 class 를 사용하지 않는다는데, 어떤식으로 구현 될지 궁금하다.
+
+<p style="text-align : center;"> -- End Of Doc. -- </p>
